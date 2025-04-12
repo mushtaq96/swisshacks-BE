@@ -1,0 +1,26 @@
+# Environment files
+.env
+.env.*
+
+# Virtual environment
+env/
+venv/
+
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# Log files
+*.log
+logs/
+
+# Miscellaneous
+.coverage
+.cache
+.ipynb_checkpoints
+.mypy_cache
+.pytest_cache
