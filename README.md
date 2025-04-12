@@ -235,5 +235,28 @@ curl http://localhost:8000/events/event_123/availability
 - Payment processing is currently mocked (replace `_mock_process_rlusd_payment` with actual RLUSD transaction logic)
 - Store wallet seeds securely
 - Error messages are detailed for debugging purposes
+# Development Setup
+## Virtual Environment
+```bash
+python -m venv myenv
+source myenv/bin/activate  # On Windows: myenv\Scripts\activate
+```
+
+## Install Dependencies
+```bash
+pip install fastapi uvicorn python-dotenv xrpl
+```
+
+## Run Development Server
+```bash
+uvicorn main:app --reload
+```
+
+## Verify Installation
+```bash
+pip list
+pip check
+```
 
 The API provides a complete ticketing system with NFT-based ticket representation, ensuring unique ownership and transferability of event tickets on the XRP Ledger.
+
