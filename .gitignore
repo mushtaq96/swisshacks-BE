@@ -24,3 +24,5 @@ logs/
 .ipynb_checkpoints
 .mypy_cache
 .pytest_cache
+
+.env
