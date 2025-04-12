@@ -1,0 +1,38 @@
+{
+  "events": [
+    {
+      "id": "d3fc7f70-3e29-45d8-b9b5-8d85c7790517",
+      "name": "string",
+      "total_tickets": 0,
+      "price_rlusd": 0.0,
+      "organizer_wallet": "string",
+      "tickets_sold": 0
+    },
+    {
+      "id": "c3937995-9bfc-4424-a160-600a96f986fc",
+      "name": "string",
+      "total_tickets": 0,
+      "price_rlusd": 0.0,
+      "organizer_wallet": "string",
+      "tickets_sold": 0
+    },
+    {
+      "id": "5f8ba58c-c63c-4864-acb1-3d5db03ed776",
+      "name": "string",
+      "total_tickets": 0,
+      "price_rlusd": 0.0,
+      "organizer_wallet": "string",
+      "tickets_sold": 0
+    },
+    {
+      "id": "673167c7-2580-40b2-85a3-dcc65cba6b32",
+      "name": "Concert",
+      "total_tickets": 100,
+      "price_rlusd": 50.0,
+      "organizer_wallet": "rOrg...",
+      "tickets_sold": 0
+    }
+  ],
+  "orders": [],
+  "tickets": []
+}

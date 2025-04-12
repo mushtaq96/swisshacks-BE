@@ -2,8 +2,23 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import xrpl
 import random
+from json_db import init_db, read_db, write_db
+from fastapi import FastAPI
+import uuid
+from xrpl.models.requests import AccountNFTs
+from xrpl.wallet import Wallet
+from dotenv import load_dotenv
+import os
+from xrpl.utils import str_to_hex
+import json
+
+load_dotenv()  # Add at the top of your main.py
+
 
 app = FastAPI()
+init_db() 
+
+
 testnet_url = "https://s.devnet.rippletest.net:51234/"
 
 # Request models
@@ -102,22 +117,36 @@ class NFTTicket(BaseModel):
 # Endpoints
 @app.post("/purchase_ticket")
 async def purchase_ticket(purchase: TicketPurchase):
-    """
-    1. Process RLUSD payment
-    2. Mint NFT ticket
-    3. Return NFT receipt
-    """
-    # Step 1: Verify RLUSD payment (mock for now)
+    # 1. Check inventory (using JSON "DB")
+    db = read_db()
+    event = next((e for e in db["events"] if e["id"] == purchase.event_id), None)
+    
+    if not event:
+        raise HTTPException(404, "Event not found")
+    if event["tickets_sold"] + purchase.quantity > event["total_tickets"]:
+        raise HTTPException(400, "Not enough tickets")
+    
+    # 2. Process payment 
     payment_status = await _mock_process_rlusd_payment(
         purchase.buyer_wallet_address,
-        purchase.quantity * 50  # 50 RLUSD per ticket
+        purchase.quantity * 50
     )
     
-    # Step 2: Mint NFT ticket
+    # 3. Mint NFTs (unchanged)
     nft_ticket = await _mint_nft_ticket(
         event_id=purchase.event_id,
         owner_address=purchase.buyer_wallet_address
     )
+    
+    # 4. Update JSON "DB"
+    event["tickets_sold"] += purchase.quantity
+    db["tickets"].append({
+        "nft_id": nft_ticket["nft_id"],
+        "event_id": purchase.event_id,
+        "owner": purchase.buyer_wallet_address,
+        "seat": nft_ticket["ticket_data"]["seat"]
+    })
+    write_db(db)
     
     return {
         "payment_status": payment_status,
@@ -135,10 +164,13 @@ async def _mint_nft_ticket(event_id: str, owner_address: str):
         "event_id": event_id,
         "seat": f"{random.randint(1, 100)}-{random.randint(1, 50)}"  # Random seat
     }
-    
-    nft_tx = NFTokenMint(
-        account=YOUR_ISSUER_WALLET.address,
+
+    seed = os.getenv("MINTER_SEED")
+    minter_wallet=xrpl.wallet.Wallet.from_seed(seed)
+    nft_tx = xrpl.models.transactions.NFTokenMint(
+        account=minter_wallet.address,
         uri=str_to_hex(json.dumps(ticket_data)),
+        nftoken_taxon=0,
         flags=1  # Transferable
     )
     response = submit_and_wait(nft_tx, xrpl_client, YOUR_ISSUER_WALLET)
@@ -146,4 +178,35 @@ async def _mint_nft_ticket(event_id: str, owner_address: str):
     return {
         "nft_id": response.result["NFTokenID"],
         "ticket_data": ticket_data
+    }
+
+class EventCreate(BaseModel):
+    name: str
+    total_tickets: int
+    price_rlusd: float
+    organizer_wallet: str
+
+# Endpoint to create a new event
+@app.post("/create_event")
+def create_event(event: EventCreate):
+    """For organizers to list new events"""
+    db = read_db()
+    new_event = {
+        "id": str(uuid.uuid4()),
+        **event.dict(),
+        "tickets_sold": 0
+    }
+    db["events"].append(new_event)
+    write_db(db)
+    return {"event_id": new_event["id"]}
+
+# Endpoint to get all events
+@app.get("/events/{event_id}/availability")
+def check_availability(event_id: str):
+    db = read_db()
+    event = next((e for e in db["events"] if e["id"] == event_id), None)
+    print(event)
+    return {
+        "available": event['total_tickets'] - event['tickets_sold'],
+        "price_per_ticket": event['price_rlusd']
     }
