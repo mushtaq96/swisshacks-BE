@@ -1,6 +1,96 @@
 {
   "events": [
     {
+        "id": "event1",
+        "name": "Zurich Street Parade",
+        "total_tickets": 5000,
+        "price_rlusd": 30,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer1",
+        "location": "Zurich, Switzerland"
+    },
+    {
+        "id": "event2",
+        "name": "Berlin Techno Festival",
+        "total_tickets": 3000,
+        "price_rlusd": 45,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer2",
+        "location": "Berlin, Germany"
+    },
+    {
+        "id": "event3",
+        "name": "Paris Jazz Festival",
+        "total_tickets": 2000,
+        "price_rlusd": 60,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer3",
+        "location": "Paris, France"
+    },
+    {
+        "id": "event4",
+        "name": "Tomorrowland Winter",
+        "total_tickets": 10000,
+        "price_rlusd": 250,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer4",
+        "location": "Alpe d'Huez, France"
+    },
+    {
+        "id": "event5",
+        "name": "Vienna Opera Ball",
+        "total_tickets": 1500,
+        "price_rlusd": 120,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer5",
+        "location": "Vienna, Austria"
+    },
+    {
+        "id": "event6",
+        "name": "Amsterdam Dance Event",
+        "total_tickets": 8000,
+        "price_rlusd": 55,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer6",
+        "location": "Amsterdam, Netherlands"
+    },
+    {
+        "id": "event7",
+        "name": "Oktoberfest",
+        "total_tickets": 12000,
+        "price_rlusd": 15,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer7",
+        "location": "Munich, Germany"
+    },
+    {
+        "id": "event8",
+        "name": "Ibiza Closing Parties",
+        "total_tickets": 4000,
+        "price_rlusd": 75,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer8",
+        "location": "Ibiza, Spain"
+    },
+    {
+        "id": "event9",
+        "name": "Sziget Festival",
+        "total_tickets": 9000,
+        "price_rlusd": 90,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer9",
+        "location": "Budapest, Hungary"
+    },
+    {
+        "id": "event10",
+        "name": "Edinburgh Fringe",
+        "total_tickets": 7000,
+        "price_rlusd": 25,
+        "tickets_sold": 0,
+        "organizer_wallet": "rOrganizer10",
+        "location": "Edinburgh, UK"
+    },
+    {
       "id": "d3fc7f70-3e29-45d8-b9b5-8d85c7790517",
       "name": "string",
       "total_tickets": 0,

@@ -1,3 +1,4 @@
+from xrpl.transaction import submit_and_wait
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import xrpl
@@ -11,6 +12,7 @@ from dotenv import load_dotenv
 import os
 from xrpl.utils import str_to_hex
 import json
+from xrpl.clients import JsonRpcClient
 
 load_dotenv()  # Add at the top of your main.py
 
@@ -20,6 +22,7 @@ init_db()
 
 
 testnet_url = "https://s.devnet.rippletest.net:51234/"
+xrpl_client = JsonRpcClient(testnet_url)
 
 # Request models
 class AccountRequest(BaseModel):
@@ -173,7 +176,7 @@ async def _mint_nft_ticket(event_id: str, owner_address: str):
         nftoken_taxon=0,
         flags=1  # Transferable
     )
-    response = submit_and_wait(nft_tx, xrpl_client, YOUR_ISSUER_WALLET)
+    response = submit_and_wait(nft_tx, xrpl_client, minter_wallet)
     
     return {
         "nft_id": response.result["NFTokenID"],
@@ -200,7 +203,7 @@ def create_event(event: EventCreate):
     write_db(db)
     return {"event_id": new_event["id"]}
 
-# Endpoint to get all events
+# Endpoint to get specific event details
 @app.get("/events/{event_id}/availability")
 def check_availability(event_id: str):
     db = read_db()
@@ -210,3 +213,9 @@ def check_availability(event_id: str):
         "available": event['total_tickets'] - event['tickets_sold'],
         "price_per_ticket": event['price_rlusd']
     }
+# Endpoint to get all events
+@app.get("/events")
+def list_events():
+    """Get all available events"""
+    db = read_db()
+    return db["events"]
