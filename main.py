@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import xrpl
+import random
 
 app = FastAPI()
 testnet_url = "https://s.devnet.rippletest.net:51234/"
@@ -82,3 +83,67 @@ def send_xrp(seed, amount, destination):
     except xrpl.transaction.XRPLReliableSubmissionException as e:    
         response = f"Submit failed: {e}"
     return response
+
+
+
+# Pydantic Models
+class TicketPurchase(BaseModel):
+    buyer_wallet_address: str  # Frontend provides this
+    event_id: str
+    quantity: int
+    payment_currency: str = "RLUSD"
+
+class NFTTicket(BaseModel):
+    ticket_id: str
+    event_id: str
+    owner_address: str
+    seat_number: str
+
+# Endpoints
+@app.post("/purchase_ticket")
+async def purchase_ticket(purchase: TicketPurchase):
+    """
+    1. Process RLUSD payment
+    2. Mint NFT ticket
+    3. Return NFT receipt
+    """
+    # Step 1: Verify RLUSD payment (mock for now)
+    payment_status = await _mock_process_rlusd_payment(
+        purchase.buyer_wallet_address,
+        purchase.quantity * 50  # 50 RLUSD per ticket
+    )
+    
+    # Step 2: Mint NFT ticket
+    nft_ticket = await _mint_nft_ticket(
+        event_id=purchase.event_id,
+        owner_address=purchase.buyer_wallet_address
+    )
+    
+    return {
+        "payment_status": payment_status,
+        "nft_ticket": nft_ticket
+    }
+
+# Helper Functions
+async def _mock_process_rlusd_payment(sender: str, amount: float):
+    """Replace with real RLUSD transaction later"""
+    return {"status": "success", "tx_hash": "0x123..."}
+
+async def _mint_nft_ticket(event_id: str, owner_address: str):
+    """Mint NFT ticket on XRPL"""
+    ticket_data = {
+        "event_id": event_id,
+        "seat": f"{random.randint(1, 100)}-{random.randint(1, 50)}"  # Random seat
+    }
+    
+    nft_tx = NFTokenMint(
+        account=YOUR_ISSUER_WALLET.address,
+        uri=str_to_hex(json.dumps(ticket_data)),
+        flags=1  # Transferable
+    )
+    response = submit_and_wait(nft_tx, xrpl_client, YOUR_ISSUER_WALLET)
+    
+    return {
+        "nft_id": response.result["NFTokenID"],
+        "ticket_data": ticket_data
+    }
