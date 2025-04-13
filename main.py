@@ -21,6 +21,7 @@ from xrpl.models.requests import AccountNFTs
 from xrpl.transaction import submit_and_wait
 from xrpl.utils import xrp_to_drops, str_to_hex
 import xrpl
+from fastapi.middleware.cors import CORSMiddleware
 
 from json_db import init_db, read_db, write_db
 
@@ -28,7 +29,22 @@ from json_db import init_db, read_db, write_db
 load_dotenv()
 app = FastAPI()
 init_db()
+init_db()
 
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+testnet_url = "https://s.devnet.rippletest.net:51234/"
+xrpl_client = JsonRpcClient(testnet_url)
 # Configuration
 TESTNET_URL = "https://s.altnet.rippletest.net:51234/"  # Using altnet consistently
 XRPL_CLIENT = JsonRpcClient(TESTNET_URL)
