@@ -13,13 +13,25 @@ import os
 from xrpl.utils import str_to_hex
 import json
 from xrpl.clients import JsonRpcClient
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()  # Add at the top of your main.py
 
 
 app = FastAPI()
-init_db() 
+init_db()
 
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 testnet_url = "https://s.devnet.rippletest.net:51234/"
 xrpl_client = JsonRpcClient(testnet_url)
@@ -68,7 +80,7 @@ def api_send_xrp(req: PaymentRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-#  Helper functions 
+#  Helper functions
 def get_account(seed):
     """get_account"""
     client = xrpl.clients.JsonRpcClient(testnet_url)
@@ -96,9 +108,9 @@ def send_xrp(seed, amount, destination):
         amount=xrpl.utils.xrp_to_drops(int(amount)),
         destination=destination,
     )
-    try:    
-        response = xrpl.transaction.submit_and_wait(payment, client, sending_wallet)    
-    except xrpl.transaction.XRPLReliableSubmissionException as e:    
+    try:
+        response = xrpl.transaction.submit_and_wait(payment, client, sending_wallet)
+    except xrpl.transaction.XRPLReliableSubmissionException as e:
         response = f"Submit failed: {e}"
     return response
 
@@ -123,24 +135,24 @@ async def purchase_ticket(purchase: TicketPurchase):
     # 1. Check inventory (using JSON "DB")
     db = read_db()
     event = next((e for e in db["events"] if e["id"] == purchase.event_id), None)
-    
+
     if not event:
         raise HTTPException(404, "Event not found")
     if event["tickets_sold"] + purchase.quantity > event["total_tickets"]:
         raise HTTPException(400, "Not enough tickets")
-    
-    # 2. Process payment 
+
+    # 2. Process payment
     payment_status = await _mock_process_rlusd_payment(
         purchase.buyer_wallet_address,
         purchase.quantity * 50
     )
-    
+
     # 3. Mint NFTs (unchanged)
     nft_ticket = await _mint_nft_ticket(
         event_id=purchase.event_id,
         owner_address=purchase.buyer_wallet_address
     )
-    
+
     # 4. Update JSON "DB"
     event["tickets_sold"] += purchase.quantity
     db["tickets"].append({
@@ -150,7 +162,7 @@ async def purchase_ticket(purchase: TicketPurchase):
         "seat": nft_ticket["ticket_data"]["seat"]
     })
     write_db(db)
-    
+
     return {
         "payment_status": payment_status,
         "nft_ticket": nft_ticket
@@ -177,7 +189,7 @@ async def _mint_nft_ticket(event_id: str, owner_address: str):
         flags=1  # Transferable
     )
     response = submit_and_wait(nft_tx, xrpl_client, minter_wallet)
-    
+
     return {
         "nft_id": response.result["NFTokenID"],
         "ticket_data": ticket_data
