@@ -1,94 +1,94 @@
 {
   "events": [
     {
-        "id": "event1",
-        "name": "Zurich Street Parade",
-        "total_tickets": 5000,
-        "price_rlusd": 30,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer1",
-        "location": "Zurich, Switzerland"
+      "id": "event1",
+      "name": "Zurich Street Parade",
+      "total_tickets": 5000,
+      "price_rlusd": 30,
+      "tickets_sold": 5,
+      "organizer_wallet": "rOrganizer1",
+      "location": "Zurich, Switzerland"
     },
     {
-        "id": "event2",
-        "name": "Berlin Techno Festival",
-        "total_tickets": 3000,
-        "price_rlusd": 45,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer2",
-        "location": "Berlin, Germany"
+      "id": "event2",
+      "name": "Berlin Techno Festival",
+      "total_tickets": 3000,
+      "price_rlusd": 45,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer2",
+      "location": "Berlin, Germany"
     },
     {
-        "id": "event3",
-        "name": "Paris Jazz Festival",
-        "total_tickets": 2000,
-        "price_rlusd": 60,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer3",
-        "location": "Paris, France"
+      "id": "event3",
+      "name": "Paris Jazz Festival",
+      "total_tickets": 2000,
+      "price_rlusd": 60,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer3",
+      "location": "Paris, France"
     },
     {
-        "id": "event4",
-        "name": "Tomorrowland Winter",
-        "total_tickets": 10000,
-        "price_rlusd": 250,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer4",
-        "location": "Alpe d'Huez, France"
+      "id": "event4",
+      "name": "Tomorrowland Winter",
+      "total_tickets": 10000,
+      "price_rlusd": 250,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer4",
+      "location": "Alpe d'Huez, France"
     },
     {
-        "id": "event5",
-        "name": "Vienna Opera Ball",
-        "total_tickets": 1500,
-        "price_rlusd": 120,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer5",
-        "location": "Vienna, Austria"
+      "id": "event5",
+      "name": "Vienna Opera Ball",
+      "total_tickets": 1500,
+      "price_rlusd": 120,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer5",
+      "location": "Vienna, Austria"
     },
     {
-        "id": "event6",
-        "name": "Amsterdam Dance Event",
-        "total_tickets": 8000,
-        "price_rlusd": 55,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer6",
-        "location": "Amsterdam, Netherlands"
+      "id": "event6",
+      "name": "Amsterdam Dance Event",
+      "total_tickets": 8000,
+      "price_rlusd": 55,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer6",
+      "location": "Amsterdam, Netherlands"
     },
     {
-        "id": "event7",
-        "name": "Oktoberfest",
-        "total_tickets": 12000,
-        "price_rlusd": 15,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer7",
-        "location": "Munich, Germany"
+      "id": "event7",
+      "name": "Oktoberfest",
+      "total_tickets": 12000,
+      "price_rlusd": 15,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer7",
+      "location": "Munich, Germany"
     },
     {
-        "id": "event8",
-        "name": "Ibiza Closing Parties",
-        "total_tickets": 4000,
-        "price_rlusd": 75,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer8",
-        "location": "Ibiza, Spain"
+      "id": "event8",
+      "name": "Ibiza Closing Parties",
+      "total_tickets": 4000,
+      "price_rlusd": 75,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer8",
+      "location": "Ibiza, Spain"
     },
     {
-        "id": "event9",
-        "name": "Sziget Festival",
-        "total_tickets": 9000,
-        "price_rlusd": 90,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer9",
-        "location": "Budapest, Hungary"
+      "id": "event9",
+      "name": "Sziget Festival",
+      "total_tickets": 9000,
+      "price_rlusd": 90,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer9",
+      "location": "Budapest, Hungary"
     },
     {
-        "id": "event10",
-        "name": "Edinburgh Fringe",
-        "total_tickets": 7000,
-        "price_rlusd": 25,
-        "tickets_sold": 0,
-        "organizer_wallet": "rOrganizer10",
-        "location": "Edinburgh, UK"
+      "id": "event10",
+      "name": "Edinburgh Fringe",
+      "total_tickets": 7000,
+      "price_rlusd": 25,
+      "tickets_sold": 0,
+      "organizer_wallet": "rOrganizer10",
+      "location": "Edinburgh, UK"
     },
     {
       "id": "d3fc7f70-3e29-45d8-b9b5-8d85c7790517",
@@ -120,9 +120,46 @@
       "total_tickets": 100,
       "price_rlusd": 50.0,
       "organizer_wallet": "rOrg...",
-      "tickets_sold": 0
+      "tickets_sold": 1
     }
   ],
   "orders": [],
-  "tickets": []
+  "tickets": [
+    {
+      "nft_id": "000827106895BE875976D76BD5E3948FCD80F0F641AF27004A4E255D001CB9C2",
+      "event_id": "673167c7-2580-40b2-85a3-dcc65cba6b32",
+      "owner": "rpDZzdoQ6KnSbCQgNVhpvLvtVpAT2qtQby",
+      "seat": "20-3"
+    },
+    {
+      "nft_id": "000827106895BE875976D76BD5E3948FCD80F0F641AF27006133F65E001CB9C3",
+      "event_id": "event1",
+      "owner": "rEAfysZ8mcM14GX1XdBDBVasHmoXVEMS1s",
+      "seat": "83-31"
+    },
+    {
+      "nft_id": "000827106895BE875976D76BD5E3948FCD80F0F641AF27007819C75F001CB9C4",
+      "event_id": "event1",
+      "owner": "rEAfysZ8mcM14GX1XdBDBVasHmoXVEMS1s",
+      "seat": "98-33"
+    },
+    {
+      "nft_id": "000827106895BE875976D76BD5E3948FCD80F0F641AF27008EFF9860001CB9C5",
+      "event_id": "event1",
+      "owner": "rEAfysZ8mcM14GX1XdBDBVasHmoXVEMS1s",
+      "seat": "35-21"
+    },
+    {
+      "nft_id": "000827106895BE875976D76BD5E3948FCD80F0F641AF2700A5E56961001CB9C6",
+      "event_id": "event1",
+      "owner": "r9XXcSyEhVrSErVnHem9JLdGMKxaUraNbh",
+      "seat": "39-50"
+    },
+    {
+      "nft_id": "000827106895BE875976D76BD5E3948FCD80F0F641AF2700BCCB3A62001CB9C7",
+      "event_id": "event1",
+      "owner": "rNPP8ZAHDo18QZ4SzgBrgqCWSTx1FLHQ22",
+      "seat": "71-48"
+    }
+  ]
 }
